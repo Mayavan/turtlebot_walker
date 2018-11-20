@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @brief main file for implementation of Walker to compute the 
+ * @brief main file for implementation of Walker to compute the
  * linear and angular velocity based on distance from an obstacle.
  *
  * @author Mayavan
@@ -16,8 +16,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -28,11 +28,12 @@
  * SOFTWARE.
  */
 
-#include "turtlebot_walker/Walker.hpp"
 #include "geometry_msgs/Twist.h"
+#include "turtlebot_walker/Walker.hpp"
 
 /**
- * @brief main function to create the node and publish data to turtlebot based on laser data
+ * @brief main function to create the node and publish data to turtlebot based
+ * on laser data
  * @param argc Standard main function parameter
  * @param argv Standard main function parameter
  * @return 0 if execution completed successfully
@@ -49,28 +50,27 @@ int main(int argc, char **argv) {
   geometry_msgs::Twist command;
 
   // Initialization of twist command to 0
-  command.linear.x=0;
-  command.linear.y=0;
-  command.linear.z=0;
+  command.linear.x = 0;
+  command.linear.y = 0;
+  command.linear.z = 0;
 
-  command.angular.x=0;
-  command.angular.y=0;
-  command.angular.z=0;
+  command.angular.x = 0;
+  command.angular.y = 0;
+  command.angular.z = 0;
 
   while (n.ok()) {
-  	if(walker.getObstacle()){
-  		// If obstacle is detected turn 
-  		command.angular.z = 0.6;
-  		command.linear.x= 0.2;
-        publisher.publish(command);
-        ros::Duration(2).sleep();
-  	}
-  	else{
-  		// If there is no obstacle go forward
-  		command.linear.x=0.1;
-  		command.angular.z=0.0;
-        publisher.publish(command);
-  	}
+    if (walker.getObstacle()) {
+      // If obstacle is detected turn
+      command.angular.z = 0.6;
+      command.linear.x = 0.2;
+      publisher.publish(command);
+      ros::Duration(2).sleep();
+    } else {
+      // If there is no obstacle go forward
+      command.linear.x = 0.1;
+      command.angular.z = 0.0;
+      publisher.publish(command);
+    }
     ros::spinOnce();
     loop_rate.sleep();
   }

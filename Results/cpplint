@@ -1,0 +1,7 @@
+mayavan@mayavan-System-Product-Name:~/catkin_ws/src/turtlebot_walker$ cpplint src/main.cpp src/Walker.cpp include/turtlebot_walker/Walker.hpp 
+Done processing src/main.cpp
+Done processing src/Walker.cpp
+include/turtlebot_walker/Walker.hpp:41:  Is this a non-const reference? If so, make const or use a pointer: ros::NodeHandle& n  [runtime/references] [2]
+Done processing include/turtlebot_walker/Walker.hpp
+Total errors found: 1
+

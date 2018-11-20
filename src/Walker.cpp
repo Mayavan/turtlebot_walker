@@ -1,6 +1,6 @@
 /**
  * @file Walker.cpp
- * @brief Class implementation of Walker to compute the 
+ * @brief Class implementation of Walker to compute the
  * linear and angular velocity based on distance from an obstacle.
  *
  * @author Mayavan
@@ -16,8 +16,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -30,9 +30,9 @@
 
 #include "turtlebot_walker/Walker.hpp"
 
-
 /**
- * @brief Callback function to calculate the minimum distance from obstacle with laser scan data
+ * @brief Callback function to calculate the minimum distance from obstacle with
+ * laser scan data
  * @param laserData laser scan data from turtlebot topic /scan
  */
 void Walker::updateDistance(const sensor_msgs::LaserScan::ConstPtr& laserData) {
@@ -41,8 +41,7 @@ void Walker::updateDistance(const sensor_msgs::LaserScan::ConstPtr& laserData) {
 
   // iterate through every point in the laser data to find the closest point
   for (int i = 0; i < laserData->ranges.size(); i++) {
-    if (laserData->ranges[i] < min)
-      min = laserData->ranges[i];
+    if (laserData->ranges[i] < min) min = laserData->ranges[i];
   }
   distanceToObstacle = min;
   ROS_INFO_STREAM("Distance to Obstacle :" << distanceToObstacle);
@@ -60,13 +59,13 @@ Walker::Walker(ros::NodeHandle& n) {
  * @brief function to find if an obstacle is closeby or not
  * @return true if an obstacle is nearby else returns false
  */
-bool Walker::getObstacle(){
-    // If distance to big go straight else rotate
-    if (distanceToObstacle > 0.5) {
-      ROS_INFO_STREAM("Moving forward");
-      return false;
-    } else {
-      ROS_INFO_STREAM("Rotating");
-      return true;
-    }
+bool Walker::getObstacle() {
+  // If distance to big go straight else rotate
+  if (distanceToObstacle > 0.5) {
+    ROS_INFO_STREAM("Moving forward");
+    return false;
+  } else {
+    ROS_INFO_STREAM("Rotating");
+    return true;
+  }
 }

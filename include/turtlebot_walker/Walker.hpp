@@ -1,7 +1,8 @@
 /**
  * @file Walker.hpp
  * @brief Header file for implementation of Walker class which is used
- * to compute the linear and angular velocity based on distance from an obstacle.
+ * to compute the linear and angular velocity based on distance from an
+ * obstacle.
  *
  * @author Mayavan
  * @copyright 2018, Mayavan
@@ -16,8 +17,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -28,18 +29,22 @@
  * SOFTWARE.
  */
 
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "sensor_msgs/LaserScan.h"
+#ifndef INCLUDE_TURTLEBOT_WALKER_WALKER_HPP_
+#define INCLUDE_TURTLEBOT_WALKER_WALKER_HPP_
 #include "geometry_msgs/Twist.h"
+#include "ros/ros.h"
+#include "sensor_msgs/LaserScan.h"
+#include "std_msgs/String.h"
 
 class Walker {
- public:  
-    Walker(ros::NodeHandle& n);
-    void updateDistance(const sensor_msgs::LaserScan::ConstPtr& Data_Input);
-    bool getObstacle();
+ public:
+  explicit Walker(ros::NodeHandle& n);
+  void updateDistance(const sensor_msgs::LaserScan::ConstPtr& Data_Input);
+  bool getObstacle();
 
- private:  
-    ros::Subscriber subscriber;
-    float distanceToObstacle;
+ private:
+  ros::Subscriber subscriber;
+  float distanceToObstacle;
 };
+
+#endif  // INCLUDE_TURTLEBOT_WALKER_WALKER_HPP_
