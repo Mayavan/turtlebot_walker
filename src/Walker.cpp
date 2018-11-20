@@ -31,6 +31,10 @@
 #include "turtlebot_walker/Walker.hpp"
 
 
+/**
+ * @brief Callback function to calculate the minimum distance from obstacle with laser scan data
+ * @param laserData laser scan data from turtlebot topic /scan
+ */
 void Walker::updateDistance(const sensor_msgs::LaserScan::ConstPtr& laserData) {
   // Minimum value initialization
   float min = 5;
@@ -44,10 +48,18 @@ void Walker::updateDistance(const sensor_msgs::LaserScan::ConstPtr& laserData) {
   ROS_INFO_STREAM("Distance to Obstacle :" << distanceToObstacle);
 }
 
+/**
+ * @brief constructor to initialize the subscriber
+ * @param n node handle to create a subscriber
+ */
 Walker::Walker(ros::NodeHandle& n) {
   subscriber = n.subscribe("/scan", 10, &Walker::updateDistance, this);
 }
 
+/**
+ * @brief function to find if an obstacle is closeby or not
+ * @return true if an obstacle is nearby else returns false
+ */
 bool Walker::getObstacle(){
     // If distance to big go straight else rotate
     if (distanceToObstacle > 0.5) {

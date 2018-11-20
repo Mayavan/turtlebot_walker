@@ -48,6 +48,7 @@ int main(int argc, char **argv) {
   ros::Rate loop_rate(10);
   geometry_msgs::Twist command;
 
+  // Initialization of twist command to 0
   command.linear.x=0;
   command.linear.y=0;
   command.linear.z=0;
@@ -58,12 +59,14 @@ int main(int argc, char **argv) {
 
   while (n.ok()) {
   	if(walker.getObstacle()){
+  		// If obstacle is detected turn 
   		command.angular.z = 0.6;
   		command.linear.x= 0.2;
         publisher.publish(command);
         ros::Duration(2).sleep();
   	}
   	else{
+  		// If there is no obstacle go forward
   		command.linear.x=0.1;
   		command.angular.z=0.0;
         publisher.publish(command);
