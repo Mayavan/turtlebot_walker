@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
   ros::Publisher publisher = n.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
   Walker walker(n);
 
-  ros::Rate loop_rate(4);
+  ros::Rate loop_rate(10);
   geometry_msgs::Twist command;
 
   command.linear.x=0;
@@ -58,16 +58,13 @@ int main(int argc, char **argv) {
 
   while (n.ok()) {
   	if(walker.getObstacle()){
-  		command.linear.x=-0.5;
-        publisher.publish(command);
-        ros::Duration(4).sleep();
-  		command.angular.z = 1;
-  		command.linear.x= 0.0;
+  		command.angular.z = 0.6;
+  		command.linear.x= 0.2;
         publisher.publish(command);
         ros::Duration(2).sleep();
   	}
   	else{
-  		command.linear.x=0.5;
+  		command.linear.x=0.1;
   		command.angular.z=0.0;
         publisher.publish(command);
   	}
